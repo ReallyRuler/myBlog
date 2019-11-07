@@ -1,2 +1,2 @@
-- [Welcome](readme.md)
+- [Welcome](README.md)
 - [Cocos](Cocos.md)
