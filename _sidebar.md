@@ -1,2 +1,2 @@
-- [Welcome](README.md)
+- [Welcome](README.md){docsify-ignore-all}
 - [Cocos](Cocos.md)
