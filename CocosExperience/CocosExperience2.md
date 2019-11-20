@@ -1,6 +1,7 @@
 # 微信小游戏Api应用案例
 1、获取自身信息（主域）
   wx.createUserInfoButton()
+  
   由于微信取消了wx.getUserInfo()，其调用结果会默认失败（仅开发环境），现在使用wx.createUserInfoButton()生成一个获取用户信息权限的按钮，其官方api在https://developers.weixin.qq.com/minigame/dev/api/open-api/user-info/wx.createUserInfoButton.html ，其官方案例为 
  ```let button = wx.createUserInfoButton({
   type: 'text',
@@ -72,3 +73,34 @@ public static createAuthorizeBtn(btnNode:cc.Node,callBackFun) {
     }
 ```
 其效果是创建一个透明获取用户权限的按钮，将其与Cocos Creator中的按钮绑定，点击响应直接授权成功，并在授权成功后调用自定义的回调函数。
+
+2、显示微信头像
+
+根据获取到的微信头像avatarUrl，可以将头像显示出来，目前我程序中的方法是
+```
+public static createImage(avatarUrl,photoSprite) {
+        console.log("avatarUrl="+avatarUrl)
+        try {
+            let image = wx.createImage();
+            image.onload = () => {
+                try {
+                    let texture = new cc.Texture2D();
+                    texture.initWithElement(image);
+                    texture.handleLoadedTexture();
+                    photoSprite.spriteFrame = new cc.SpriteFrame(texture);
+                } catch (e) {
+                    cc.log(e);
+                    photoSprite.node.active = false;
+                }
+            };
+            image.src = avatarUrl;
+        }catch (e) {
+            cc.log(e);
+            photoSprite.node.active = false;
+        }
+    }
+```
+将url对应的图片赋予输入节点的cc.Sprite组件
+
+3、主动分享与通过分享传参
+
