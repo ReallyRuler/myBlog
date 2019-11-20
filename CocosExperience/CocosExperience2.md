@@ -3,6 +3,7 @@
   wx.createUserInfoButton()
   
   由于微信取消了wx.getUserInfo()，其调用结果会默认失败（仅开发环境），现在使用wx.createUserInfoButton()生成一个获取用户信息权限的按钮，其官方api在https://developers.weixin.qq.com/minigame/dev/api/open-api/user-info/wx.createUserInfoButton.html ，其官方案例为 
+  
  ```let button = wx.createUserInfoButton({
   type: 'text',
   text: '获取用户信息',
@@ -23,7 +24,9 @@ button.onTap((res) => {
   console.log(res)
 })
 ```
+
 其效果为创建一个红色背景按钮，点击时会弹出申请用户权限，实际上在Cocos Creator上对于这种api使用方式比较别扭，查阅论坛发现一种十分方便的解决办法https://forum.cocos.org/t/wx-createuserinfobutton/60207/9 ，下面的代码在我目前程序中使用
+
 ```
 public static createAuthorizeBtn(btnNode:cc.Node,callBackFun) {
         let btnSize = cc.size(btnNode.width+10,btnNode.height+10);
@@ -72,11 +75,13 @@ public static createAuthorizeBtn(btnNode:cc.Node,callBackFun) {
         });
     }
 ```
+
 其效果是创建一个透明获取用户权限的按钮，将其与Cocos Creator中的按钮绑定，点击响应直接授权成功，并在授权成功后调用自定义的回调函数。
 
 2、显示微信头像
 
 根据获取到的微信头像avatarUrl，可以将头像显示出来，目前我程序中的方法是
+
 ```
 public static createImage(avatarUrl,photoSprite) {
         console.log("avatarUrl="+avatarUrl)
@@ -100,6 +105,7 @@ public static createImage(avatarUrl,photoSprite) {
         }
     }
 ```
+
 将url对应的图片赋予输入节点的cc.Sprite组件
 
 3、主动分享与通过分享传参
