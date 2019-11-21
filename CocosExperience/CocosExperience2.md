@@ -79,11 +79,13 @@ public static createAuthorizeBtn(btnNode:cc.Node,callBackFun) {
 
 其效果是创建一个透明获取用户权限的按钮，将其与Cocos Creator中的按钮绑定，点击响应直接授权成功，并在授权成功后调用自定义的回调函数。
 
+目前发现存在问题，生成的透明按钮在Cocos Creator场景跳转后仍然存在，需要手动删除，之后会补上方案。
+
 2、显示微信头像
 
 根据获取到的微信头像avatarUrl，可以将头像显示出来，目前我程序中的方法是
 
-```
+```显示微信头像
 public static createImage(avatarUrl,photoSprite) {
         console.log("avatarUrl="+avatarUrl)
         try {
