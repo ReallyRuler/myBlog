@@ -4,7 +4,8 @@
   
   由于微信取消了wx.getUserInfo()，其调用结果会默认失败（仅开发环境），现在使用wx.createUserInfoButton()生成一个获取用户信息权限的按钮，其官方api在https://developers.weixin.qq.com/minigame/dev/api/open-api/user-info/wx.createUserInfoButton.html ，其官方案例为 
   
- ```let button = wx.createUserInfoButton({
+ ```官方demo
+ let button = wx.createUserInfoButton({
   type: 'text',
   text: '获取用户信息',
   style: {
@@ -27,7 +28,7 @@ button.onTap((res) => {
 
 其效果为创建一个红色背景按钮，点击时会弹出申请用户权限，实际上在Cocos Creator上对于这种api使用方式比较别扭，查阅论坛发现一种十分方便的解决办法https://forum.cocos.org/t/wx-createuserinfobutton/60207/9 ，下面的代码在我目前程序中使用
 
-```
+```结合Cocos的方法
 public static createAuthorizeBtn(btnNode:cc.Node,callBackFun) {
         let btnSize = cc.size(btnNode.width+10,btnNode.height+10);
         let frameSize = cc.view.getFrameSize();
