@@ -137,3 +137,4 @@ let launch = wx.getLaunchOptionsSync();
                 /**一些操作*/、
             }
         }
+```
