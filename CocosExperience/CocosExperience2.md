@@ -112,4 +112,28 @@ public static createImage(avatarUrl,photoSprite) {
 将url对应的图片赋予输入节点的cc.Sprite组件
 
 3、主动分享与通过分享传参
-
+可以通过发起一次主动分享来向被分享人传递参数，一般用于邀请进入同一房间游戏，下面的是发起分享的代码
+```主动分享
+public static wxShare(roomid,avatarUrl){
+        console.log("开始分享")
+        var self = this;
+        cc.loader.loadRes("texture/share",function(err,data){
+            console.log("读取资源成功 data.url="+data.url+" roomid="+roomid);
+            cc.director.loadScene('Share');
+            wx.shareAppMessage({
+                title: "一起玩游戏！",
+                imageUrl: data.url,
+                query: "roomid="+roomid+"&avatarUrl="+avatarUrl
+            },)
+        });
+    }
+  ```
+点击分享链接进入的用户可以通过wx.getLaunchOptionsSync()获取传递的参数，可以放到游戏开始场景的onload()方法中，来区别对待自己进入还是通过他人分享链接进入游戏
+```获取参数
+let launch = wx.getLaunchOptionsSync();
+        console.log(launch);  
+        if(launch.query != undefined && launch.query != null && launch.query.length != 0){
+            if(launch.query.roomid != undefined && launch.query.avatarUrl != undefined){
+                /**一些操作*/、
+            }
+        }
